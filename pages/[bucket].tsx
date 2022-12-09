@@ -52,7 +52,7 @@ function BucketPage({ bucket }: Props) {
   return (
     <Page className="flex flex-col gap-12">
       <section className="flex flex-col gap-6">
-        <Text variant="h1">Performance experimentation with Statsig</Text>
+        <Text variant="h1">Performant experimentation with Statsig</Text>
         <Text>
           In this demo we use Statsig&apos;s Server SDK at the edge to pull
           experiment variants and show the resulting allocation. We leverage the
