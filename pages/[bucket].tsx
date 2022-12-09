@@ -56,7 +56,7 @@ function BucketPage({ bucket }: Props) {
         <Text>
           In this demo we use Statsig&apos;s Server SDK at the edge to pull
           experiment variants and show the resulting allocation. We leverage the
-          {' '}<Link href="vercel.com/integrations/statsig" target="_blank">
+          {' '}<Link href="https://vercel.com/integrations/statsig" target="_blank">
             edge config integration
           </Link>{' '} to pull Statsig configurations from the edge. As long as you
           have a bucket assigned you will always see the same result, otherwise
