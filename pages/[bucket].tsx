@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { Statsig } from 'statsig-react'
@@ -12,7 +11,7 @@ import {
   Snippet,
   Code,
 } from '@vercel/examples-ui'
-import { FLAG, UID_COOKIE } from '../lib/constants'
+import { EXPERIMENT, UID_COOKIE } from '../lib/constants'
 import api from '../lib/statsig-api'
 
 interface Props {
@@ -29,7 +28,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths<{ bucket: string }> = async () => {
   // Groups that we want to statically generate
-  const groups: string[] = await api.getGroups()
+  const groups: string[] = await api.getBuckets(EXPERIMENT)
 
   return {
     paths: groups.map((group) => ({
@@ -50,18 +49,16 @@ function BucketPage({ bucket }: Props) {
     reload()
   }
 
-  useEffect(() => {
-    // Log exposure to statsig
-    api.logExposure(Cookie.get(UID_COOKIE)!, bucket, FLAG)
-  }, [bucket])
-
   return (
     <Page className="flex flex-col gap-12">
       <section className="flex flex-col gap-6">
-        <Text variant="h1">AB testing with Statsig</Text>
+        <Text variant="h1">Performance experimentation with Statsig</Text>
         <Text>
-          In this demo we use Statsig&apos;s REST Api at the edge to pull
-          experiment variants and show the resulting allocation. As long as you
+          In this demo we use Statsig&apos;s Server SDK at the edge to pull
+          experiment variants and show the resulting allocation. We leverage the
+          {' '}<Link href="vercel.com/integrations/statsig" target="_blank">
+            edge config integration
+          </Link>{' '} to pull Statsig configurations from the edge. As long as you
           have a bucket assigned you will always see the same result, otherwise
           you will be assigned a bucket to mantain the odds specified in the
           experiment.
@@ -71,21 +68,6 @@ function BucketPage({ bucket }: Props) {
           <Code>/[bucket]</Code> page so its fast to rewrite to them. Take a
           look at the <Code>middleware.ts</Code> file to know more.
         </Text>
-        <Text>
-          Once the page is fully functional we log the exposure for the
-          experiment, this will let Statsig know that the bucket was correctly
-          assigned and the user has been exposed to the experiment. If we
-          don&apos;t log the exposure, Statsig won&apos;t be able to analyze and
-          track the progress of the experiment.
-        </Text>
-        <Snippet>{`import statsig from '../lib/statsig-api'
-
-...
-
-useEffect(() => {
-  // Log exposure to statsig
-  api.logExposure(Cookie.get(UID_COOKIE), bucket, FLAG)
-}, [bucket])`}</Snippet>
         <Text>
           You can reset the bucket multiple times to get a different bucket
           assigned. You can configure your experiments, see diagnostics and
