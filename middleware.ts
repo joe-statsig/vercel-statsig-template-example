@@ -20,7 +20,7 @@ export async function middleware(req: NextRequest) {
     hasUserId = false
   }
 
-  const dataAdapter = new EdgeConfigDataAdapter(process.env.EDGE_CONFIG_ITEM_KEY);
+  const dataAdapter = new EdgeConfigDataAdapter(process.env.EDGE_CONFIG_ITEM_KEY!);
   await Statsig.initialize(
     process.env.STATSIG_SERVER_API_KEY!,
     { dataAdapter } 
