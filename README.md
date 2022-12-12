@@ -42,12 +42,14 @@ yarn create next-app --example https://github.com/vercel/examples/tree/main/edge
 #### Set up environment variables
 
 Log in to the [Statsig console](https://console.statsig.com/) and navigate to **Settings -> API KEYS**.
-
-Then, copy [.env.example](./env.example) to `.env.local` and fill it in with your Client API keys:
+Then, copy [.env.example](./env.example) to `.env.local` and fill it in with your Client, Server and Console API keys:
 
 ```bash
 cp .env.example .env.local
 ```
+
+Install the [Statsig Vercel Integration](https://vercel.com/integrations/statsig) for you project.
+Then fill in `.env.local` with the provided Edge Config Connection String and Edge Config Item Key.
 
 Next, run Next.js in development mode:
 

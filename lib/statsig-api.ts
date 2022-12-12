@@ -1,13 +1,6 @@
 const STATSIG_URL = 'https://statsigapi.net'
 const STATSIG_CONSOLE_API_KEY = process.env.STATSIG_CONSOLE_API_KEY!
 
-type Experiment = {
-  name: string
-  value: Record<string, any>
-  group: string
-  rule_id: string | null
-}
-
 /**
  * Fetch wrapper for the Statsig API
  */
