@@ -7,9 +7,10 @@ import { EXPERIMENT, UID_COOKIE } from './lib/constants'
 const IS_UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{16}$/i
 
 export async function middleware(req: NextRequest) {
-  
+
   console.log(req.headers.get('X-Statsig-Signature'));
   console.log(req.headers.get('X-Statsig-Request-Timestamp'));
+  console.log(await req.text());
 
   // If the request is not for `/`, continue
   if (req.nextUrl.pathname !== '/') return
